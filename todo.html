@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+    
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <title>Todos</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/todo.css">
+
+    <!--HTML5 Shiv-->
+    <!--[if lt IE 9]>
+        <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+	<div>What to do?</div>
+	<input placeholder="Type and hit enter" name="todo" type="text" autocomplete="off" />
+	<ul class=priority>
+		<li class="red translucent" data-priority=high data-selection='deselected'></li>
+		<li class="blue translucent" data-priority=medium data-selection='deselected'></li>
+		<li class="white" data-priority=low data-selection='deselected'></li>
+	</ul>
+	<div class="clear"></div>
+	<ul id="sortable">
+		<li><input type="checkbox" class="todo-check"><span>dead man's drop</span> <span>x</span></li>
+		<li><input type="checkbox" class="todo-check"><span class=high>kick buttowski</span> <span>x</span></li>
+		<li><input type="checkbox" class="todo-check"><span class=medium>yeah brad!</span> <span>x</span></li>
+		<li><input type="checkbox" class="todo-check"><span>the way of the wade</span> <span>x</span></li>
+	</ul>
+	<div>
+		<span>4 tasks left</span>
+	</div>
+</div>
+<script src="js/jquery-1.7.2.min.js"></script>
+<script src="js/jquery-ui-1.8.20.custom.min.js"></script>
+<script>
+	$(function() {
+		$( "#sortable" ).sortable();
+		$( "#sortable" ).disableSelection();
+		$( "#sortable" ).sortable({ opacity: 0.8 });
+
+		$( ":checkbox" ).click(function () {
+			if ($(this).is(':checked')) {
+				$(this).next('span').addClass('strike');
+			} else {
+				$(this).next('span').removeClass('strike');
+			}
+		});
+
+		$( "#sortable li" ).children('span:last-child').click(function() {
+			$(this).parent().animate({ marginLeft: -600 }).slideUp('normal').fadeOut(50, function() {
+				$(this).remove();
+			});
+		});
+
+		$( ".priority li" ).click(function() {
+			$(this).siblings('li').removeClass('opaque').addClass('translucent');
+			$(this).removeClass('translucent').addClass('opaque').attr('data-selection',selection);
+		});
+	});
+</script>
+</body>
+</html>
