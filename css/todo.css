@@ -16,23 +16,30 @@ body {
     overflow: hidden;
     position: relative;
 }
-.wrapper > input[type=text] {
+.wrap {
     position: relative;
-    padding: 6px 80px 6px 6px;
-    width: 426px;
-    line-height: 1.5em;
-    font-size: 20px;
+    display: block;
+    width: 512px;
+    margin: 0 auto;
+    padding: 2px 0;
 
     border: 1px solid #b2b2b2;
     box-shadow: rgba(0, 0, 0, 0.2) 0 1px 1px 0 inset;
-    color: #333;
-    margin: 0 0 10px 0;
-
     -webkit-transition: color 0.1s ease-in-out, width 0.4s ease-in-out;
     -moz-transition: color 0.1s ease-in-out, width 0.4s ease-in-out;
     -o-transition: color 0.1s ease-in-out, width 0.4s ease-in-out;
     -ms-transition: color 0.1s ease-in-out, width 0.4s ease-in-out;
     transition: color 0.1s ease-in-out, width 0.4s ease-in-out;
+}
+.left {float: left;}
+.right {float: right;}
+.wrap input[type=text] {
+    position: relative;
+    padding: 6px;
+    width: 425px;
+    font-size: 24px;
+    float: left;
+    border: none;
 }
 .wrapper > div:first-child {
 	line-height: 3em;
@@ -60,7 +67,7 @@ body {
     padding: 0;
     margin: 0 10px 0 0;
 }
-#sortable > li > span:last-child {
+.cross {
     position: absolute;
     width: 1em;
     height: 1em;
@@ -106,12 +113,12 @@ body {
     -ms-transition: opacity 042s ease-out;
     transition: opacity 0.4s ease-out;
 }
-#sortable > li > span:last-child:hover {
+.cross:hover {
     background-image: linear-gradient(top, rgba(220, 220, 220, 1), rgba(200, 200, 200, 1));
     background-image: -webkit-linear-gradient(top, rgba(220, 220, 220, 1), rgba(200, 200, 200, 1));
     background-image: -moz-linear-gradient(top, rgba(220, 220, 220, 1), rgba(200, 200, 200, 1));
 }
-#sortable > li:hover > span:last-child {
+#sortable > li:hover > .cross {
     opacity: 1;
     -moz-opacity: 1;
     filter:alpha(opacity=1);
@@ -165,13 +172,13 @@ body {
     border-right: none;
 }*/
 .priority {
-    position: absolute;
-    right: 22px;
-    top: 100px;
+    position: relative;
+    top: 10px;
+    right: 5px;
 }
 .priority > li {
-    width: 1.5em;
-    height: 1.5em;
+    width: 20px;
+    height: 20px;
  
     line-height:1.5em;
     text-align:center;
@@ -218,7 +225,6 @@ body {
     -moz-opacity: 1;
     filter:alpha(opacity=1);
 }
-.priority > li:first-child { margin: 0 0 0 0; }
 .red {
     background-image: -webkit-linear-gradient(top, rgb(247, 130, 151), rgb(244, 102, 119));
     background-image: -moz-linear-gradient(top, rgb(247, 130, 151), rgb(244, 102, 119));
@@ -280,4 +286,16 @@ body {
     -moz-opacity: 0.7;
     filter:alpha(opacity=7);
     text-decoration: line-through;
+}
+input:required, textarea:required {  
+    -moz-box-shadow:none;  
+    -webkit-box-shadow:none;  
+    -o-box-shadow:none;  
+    box-shadow:none;  
+}
+::-webkit-input-placeholder {  
+    color:#CCC;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {  
+    color:#CCC;
 }
