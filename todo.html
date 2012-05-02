@@ -118,6 +118,9 @@
 			$( this ).children('div').children('input:text').attr('value', val);
 			$( this ).children().hide();
 			$( this ).children('div').show();
+
+			$( this ).siblings('li').children().show();
+			$( this ).siblings('li').children('div').hide();
 		});
 	});
 </script>
