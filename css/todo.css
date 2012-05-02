@@ -69,8 +69,8 @@ body {
 }
 .cross {
     position: absolute;
-    width: 1em;
-    height: 1em;
+    width: 25px;
+    height: 25px;
  
     text-align:center;
  
@@ -96,6 +96,7 @@ body {
     background-image: -moz-linear-gradient(top, rgba(230, 230, 230, 1), rgba(210, 210, 210, 1));
     cursor: pointer;
     right: 0;
+    top: 15px;
     opacity: 0;
     -moz-opacity: 0;
     filter:alpha(opacity=0);
