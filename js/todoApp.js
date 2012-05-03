@@ -5,6 +5,8 @@
 		tagName: 'li',
 
 		initialize: function() {
+			_.bindAll(this, 'render');
+			this.model.bind('change', this.render);
 			this.template = _.template($('#todo-template').html());
 		},
 
