@@ -1,8 +1,20 @@
 (function($) {
-	window.Todo = Backbone.Model.extend({});
+	window.Todo = Backbone.Model.extend({
+		clear: function() {
+			this.destroy();
+			$(this.view.el).remove();
+		}
+	});
 
 	window.TodoView = Backbone.View.extend({
 		tagName: 'li',
+
+		events: {
+			'click :checkbox' : 'toogleDone',
+			'dblclick .todo' : 'edit',
+			'click .cross' : 'clear',
+			'keypress input:text' : 'updateOnEnter'
+		},
 
 		initialize: function() {
 			_.bindAll(this, 'render');
@@ -11,9 +23,28 @@
 		},
 
 		render: function() {
-			var renderedContent = this.template(this.model.toJSON());
-			$(this.el).html(renderedContent);
+			$(this.el).html(this.template(this.model.toJSON()));
 			return this;
+		},
+
+		toogleDone: function() {
+
+		},
+
+		edit: function() {
+		},
+
+		clear: function() {
+
+		},
+
+		updateOnEnter: function(e) {
+			if (e.charCode == 13) {
+				this.model.set({
+					priority: this.$('input:radio[name='+this.model.get('id')+']:checked').val(),
+					todo: this.$('input:text').val()
+				});
+			}
 		}
 	});
 })(jQuery);
