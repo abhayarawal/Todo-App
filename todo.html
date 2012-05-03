@@ -97,7 +97,7 @@
 		$( "#sortable" ).sortable({ opacity: 0.8 });
 
 
-		$(document).on("click", "#sortable :checkbox", function () {
+		$("#sortable").on("click", ":checkbox", function () {
 			if ($(this).is(':checked')) {
 				$(this).next('span').addClass('strike');
 			} else {
@@ -105,7 +105,7 @@
 			}
 		}); 
 
-		$(document).on("click", "#sortable .cross", function() {
+		$("#sortable").on("click", ".cross", function() {
 			$(this).parent().animate({ marginLeft: -600 }).slideUp('normal').fadeOut(50, function() {
 				$(this).remove();
 			});
@@ -114,7 +114,7 @@
 
 		$( "#sortable li" ).children('div').hide();
 
-		$(document).on("dblclick", "#sortable li", function(){
+		$("#sortable").on("dblclick", "li", function(){
 			var val = $( this ).children('input:hidden').attr('data-val');
 			$( this ).children('div').children('input:text').attr('value', val);
 			$( this ).children().hide();
