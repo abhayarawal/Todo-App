@@ -57,9 +57,9 @@
 			<div class=wrap>
 				<input placeholder="Type and hit enter" value="" name="todo" type="text" autocomplete="off" />
 				<ul class='priority right'>
-					<li class="red translucent" data-priority=high data-selection='deselected'></li>
-					<li class="blue translucent" data-priority=medium data-selection='deselected'></li>
-					<li class="white" data-priority=low data-selection='deselected'></li>
+					<li class="red translucent" data-priority=high></li>
+					<li class="blue translucent" data-priority=medium></li>
+					<li class="white" data-priority=low></li>
 				</ul>
 				<div class="clear"></div>
 			</div>
@@ -111,6 +111,10 @@
 			});
 		});  
 		//$(document).on("click", "a.offsite", function(){ alert("Goodbye!"); });  
+		$(".priority").on("click", "li", function() {
+			$(this).siblings('li').removeClass('opaque').addClass('translucent');
+			$(this).removeClass('translucent').addClass('opaque');
+		}); 
 
 		$( "#sortable li" ).children('div').hide();
 
