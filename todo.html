@@ -18,65 +18,16 @@
 	<div class=wrap>
 		<input placeholder="Type and hit enter" name="todo" type="text" autocomplete="off" />
 		<ul class='priority right'>
-			<li class="red translucent" data-priority=high data-selection='deselected'></li>
-			<li class="blue translucent" data-priority=medium data-selection='deselected'></li>
-			<li class="white" data-priority=low data-selection='deselected'></li>
+			<input type=radio name='priority' id='priority_h' value='high'>
+			<label for="priority_h" class="red"></label>
+			<input type=radio name='priority' id='priority_m' value='medium'>
+			<label for="priority_m" class="blue"></label>
+			<input type=radio name='priority' id='priority_l' value='low' checked>
+			<label for="priority_l" class="white"></label>
 		</ul>
 		<div class="clear"></div>
 	</div>
 	<ul id="sortable">
-		<li>
-			<input type="checkbox" class="todo-check"><span>dead man's drop</span> <span class=cross>x</span>
-			<input type="hidden" data-id="" data-val="dead man's drop" data-priority="" />
-			<div class=wrap>
-				<input placeholder="Type and hit enter" value="" name="todo" type="text" autocomplete="off" />
-				<ul class='priority right'>
-					<li class="red translucent" data-priority=high data-selection='deselected'></li>
-					<li class="blue translucent" data-priority=medium data-selection='deselected'></li>
-					<li class="white" data-priority=low data-selection='deselected'></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-		</li>
-		<li>
-			<input type="checkbox" class="todo-check"><span class=high>kick buttowski</span> <span class=cross>x</span>
-			<input type="hidden" data-id="" data-val="kick buttowski" data-priority="" />
-			<div class=wrap>
-				<input placeholder="Type and hit enter" value="" name="todo" type="text" autocomplete="off" />
-				<ul class='priority right'>
-					<li class="red translucent" data-priority=high data-selection='deselected'></li>
-					<li class="blue translucent" data-priority=medium data-selection='deselected'></li>
-					<li class="white" data-priority=low data-selection='deselected'></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-		</li>
-		<li>
-			<input type="checkbox" class="todo-check"><span class=medium>yeah brad!</span> <span class=cross>x</span>
-			<input type="hidden" data-id="" data-val="yeah brad!" data-priority="" />
-			<div class=wrap>
-				<input placeholder="Type and hit enter" value="" name="todo" type="text" autocomplete="off" />
-				<ul class='priority right'>
-					<li class="red translucent" data-priority=high></li>
-					<li class="blue translucent" data-priority=medium></li>
-					<li class="white" data-priority=low></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-		</li>
-		<li>
-			<input type="checkbox" class="todo-check"><span>the way of the wade</span> <span class=cross>x</span>
-			<input type="hidden" data-id="" data-val="the way of the wade" data-priority="" />
-			<div class=wrap>
-				<input placeholder="Type and hit enter" value="" name="todo" type="text" autocomplete="off" />
-				<ul class='priority right'>
-					<li class="red translucent" data-priority=high data-selection='deselected'></li>
-					<li class="blue translucent" data-priority=medium data-selection='deselected'></li>
-					<li class="white" data-priority=low data-selection='deselected'></li>
-				</ul>
-				<div class="clear"></div>
-			</div>
-		</li>
 	</ul>
 	<div>
 		<span>-- tasks left</span>
@@ -84,7 +35,24 @@
 </div>
 <script type="text/template" id="todo-template">
 	<input type="checkbox" class="todo-check"><span class=<%= priority %>><%= todo %></span> <span class=cross>x</span>
+	<div class=wrap style='display: none;'>
+		<input placeholder="Type and hit enter" value="" name="todo" type="text" autocomplete="off" />
+		<ul class='priority right'>
+			<input type=radio name='<%= id %>' id='<%= id %>_h' value='high'>
+			<label for="<%= id %>_h" class="red"></label>
+			<input type=radio name='<%= id %>' id='<%= id %>_m' value='medium'>
+			<label for="<%= id %>_m" class="blue"></label>
+			<input type=radio name='<%= id %>' id='<%= id %>_l' value='low' checked>
+			<label for="<%= id %>_l" class="white"></label>
+		</ul>
+		<div class="clear"></div>
+	</div>
 </script>
+<ul class='priority right'>
+	<li class="red translucent" data-priority=high data-selection='deselected'></li>
+	<li class="blue translucent" data-priority=medium data-selection='deselected'></li>
+	<li class="white" data-priority=low data-selection='deselected'></li>
+</ul>
 <script src="js/jquery-1.7.2.min.js"></script>
 <script src="js/jquery-ui-1.8.20.custom.min.js"></script>
 <script src="js/underscore-min.js"></script>
@@ -111,22 +79,28 @@
 			});
 		});  
 		//$(document).on("click", "a.offsite", function(){ alert("Goodbye!"); });  
-		$(".priority").on("click", "li", function() {
-			$(this).siblings('li').removeClass('opaque').addClass('translucent');
-			$(this).removeClass('translucent').addClass('opaque');
-		}); 
+		// $(".priority").on("click", "li", function() {
+		// 	$(this).siblings('li').removeClass('opaque').addClass('translucent');
+		// 	$(this).removeClass('translucent').addClass('opaque');
+		// });
 
 		$( "#sortable li" ).children('div').hide();
 
 		$("#sortable").on("dblclick", "li", function(){
-			var val = $( this ).children('input:hidden').attr('data-val');
-			$( this ).children('div').children('input:text').attr('value', val);
+			// var val = $( this ).children('input:hidden').attr('data-val');
+			// $( this ).children('div').children('input:text').attr('value', val);
 			$( this ).children().hide();
 			$( this ).children('div').show();
 
 			$( this ).siblings('li').children().show();
 			$( this ).siblings('li').children('div').hide();
 		});
+
+		var todo = new Todo({id: "1234", todo: "dead man's drop", priority: "high"}),
+			todoView = new TodoView({model: todo});
+		$('#sortable').append(todoView.render().el);
+
+		window.todo = todo;
 	});
 </script>
 </body>
