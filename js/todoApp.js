@@ -40,10 +40,10 @@
 		template: _.template($('#todo-template').html()),
 
 		events: {
-			'click :checkbox' : 'toggleDone',
-			'dblclick .todo' : 'edit',
-			'click .cross' : 'clear',
-			'keypress input:text' : 'updateOnEnter'
+			'click :checkbox'      : 'toggleDone',
+			'dblclick .todo'       : 'edit',
+			'click .cross'         : 'clear',
+			'keypress input:text'  : 'updateOnEnter'
 		},
 
 		initialize: function() {
@@ -125,23 +125,21 @@
 		},
 
 		addAll: function() {
-			console.log('addAll');
 			Todos.each(this.addOne);
 		},
 
 		createNewTodo: function(e) {
 			if ((e.keyCode || e.which) == 13) {
-				// return if input is empty
 				if (!this.input.val()) return;
 
 				var todoVal = this.input.val(),
 					priorityVal = $('input:radio[name=priority]:checked').val();
 
 				Todos.create({
-					todo: todoVal,
+					todo    : todoVal,
 					priority: priorityVal,
-					order: Todos.nextOrder(),
-					checked: false
+					order   : Todos.nextOrder(),
+					checked : false
 				});
 
 				$('#new-todo').val('');
