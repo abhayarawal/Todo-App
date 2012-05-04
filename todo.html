@@ -15,8 +15,11 @@
 <body>
 <div class="wrapper">
 	<div>What to do?</div>
-	<div class='wrap mrg-btm'>
-		<input placeholder="Type and hit enter" name="todo" class="todo-input" type="text" autocomplete="off" />
+	<div class='wrap container'>
+		<input placeholder="Type and hit enter" name="todo" id="new-todo" type="text" autocomplete="off" />
+		<!-- <span class="tooltip">
+			Hit enter to add todo. Assign color from the right.
+		</span> -->
 		<ul class='priority right'>
 			<input type=radio name='priority' id='priority_h' value='high'>
 			<label for="priority_h" class="red"></label>
@@ -33,28 +36,24 @@
 		<span>-- tasks left</span>
 	</div>
 </div>
-<script type="text/template" id="todo-template">
-	<input type="checkbox" class="todo-check"><span class='<%= priority %> todo'><%= todo %></span> <span class=cross>x</span>
-	<div class=wrap style='display: none;'>
-		<input placeholder="Type and hit enter" value="<%= todo %>" name="todo" type="text" autocomplete="off" />
-		<ul class='priority right'>
-			<input type=radio name='<%= id %>' id='<%= id %>_h' value='high'>
-			<label for="<%= id %>_h" class="red"></label>
-			<input type=radio name='<%= id %>' id='<%= id %>_m' value='medium'>
-			<label for="<%= id %>_m" class="blue"></label>
-			<input type=radio name='<%= id %>' id='<%= id %>_l' value='low' checked>
-			<label for="<%= id %>_l" class="white"></label>
+
+<script type=text/template id=todo-template>
+	<input type=checkbox class=todo-check <% if (checked) { %>checked<% } %>>
+	<span class="<%= priority %> todo"><%= todo %></span>
+	<span class=cross>x</span>
+	<div class=wrap style="display: none;">
+		<input placeholder="Type and hit enter" value="<%= todo %>" name=todo type=text autocomplete=off />
+		<ul class="priority right">
+			<input type=radio name=<%= id %> id=<%= id %>_h value=high <%= c_h %>>
+			<label for=<%= id %>_h class=red></label>
+			<input type=radio name=<%= id %> id=<%= id %>_m value=medium <%= c_m %>>
+			<label for=<%= id %>_m class=blue></label>
+			<input type=radio name=<%= id %> id=<%= id %>_l value=low <%= c_l %>>
+			<label for=<%= id %>_l class=white></label>
 		</ul>
-		<div class="clear"></div>
+		<div class=clear></div>
 	</div>
 </script>
-<!--
-<ul class='priority right'>
-	<li class="red translucent" data-priority=high data-selection='deselected'></li>
-	<li class="blue translucent" data-priority=medium data-selection='deselected'></li>
-	<li class="white" data-priority=low data-selection='deselected'></li>
-</ul>
--->
 <script src="js/jquery-1.7.2.min.js"></script>
 <script src="js/jquery-ui-1.8.20.custom.min.js"></script>
 <script src="js/underscore-min.js"></script>
@@ -63,53 +62,18 @@
 <script src="js/todoApp.js"></script>
 <script>
 	$(function() {
-		$( "#sortable" ).sortable();
-		$( "#sortable" ).disableSelection();
-		$( "#sortable" ).sortable({ opacity: 0.8 });
-
-
-		$("#sortable").on("click", ":checkbox", function () {
-			if ($(this).is(':checked')) {
-			} else {
-			}
-		}); 
-
 		$("#sortable").on("click", ".cross", function() {
 			$(this).parent().animate({ marginLeft: -600 }).slideUp('normal').fadeOut(50, function() {
 				$(this).remove();
 			});
 		});
 
-		$( "#sortable li" ).children('div').hide();
-
 		$("#sortable").on("dblclick", "li", function(){
-			// var val = $( this ).children('input:hidden').attr('data-val');
-			// $( this ).children('div').children('input:text').attr('value', val);
 			$( this ).children().hide();
 			$( this ).children('div').show();
 
 			$( this ).siblings('li').children().show();
 			$( this ).siblings('li').children('div').hide();
-		});
-
-		var todo = [], todoView = [];
-		todo[todo.length] = new Todo({id: "1234", todo: "dead man's drop", priority: "high"});
-		todoView[todoView.length] = new TodoView({model: todo[todo.length-1]});
-		$('#sortable').append(todoView[todoView.length-1].render().el);
-
-		window.todo = todo;
-
-		$('.todo-input').bind('keypress', function(e) {
-			if (e.charCode == 13) {
-				var id = (((1+Math.random())*0x10000)|0).toString(16).substring(1),
-					todoVal = $(this).val(),
-					priorityVal = $('input:radio[name=priority]:checked').val();
-
-				todo[todo.length] = new Todo({id: id, todo: todoVal, priority: priorityVal});
-				todoView[todoView.length] = new TodoView({model: todo[todo.length-1]});
-
-				$('#sortable').append(todoView[todoView.length-1].render().el);
-			}
 		});
 	});
 </script>
