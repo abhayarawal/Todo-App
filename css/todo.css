@@ -42,32 +42,6 @@ body {
 	text-align: center;
     font-family: vladimir;
 }
-/*.tooltip {
-    position: absolute;
-    background: #fff;
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0px 1px 3px 1px #c2c2c2;
-    top: 50px;
-    right: 34px;
-    z-index: 888;
-    font-family: georgia;
-    font-size: 15px;
-    text-shadow: 1px 1px 1px white;
-    opacity:0;
-    color: #333;
-    cursor: help;
- 
-    -webkit-transition: .2s opacity ease-in;
-    -moz-transition: .2s opacity ease-in;
-    -o-transition: .2s opacity ease-in;
-    -ms-transition: .2s opacity ease-in;
-    transition: .2s opacity ease-in;
-}
-#new-todo:focus + span.tooltip {
-    display: none;
-    opacity: 1;
-}*/
 .arrow {
     width: 0;
     height: 0;
