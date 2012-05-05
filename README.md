@@ -1,7 +1,7 @@
 Todo App
 ========
 
-Todo app is a todo manager inspired by [localtodos.com](http://localtodos.com).
+Todo app is a todo management application.
 
 ### Note ###
 
