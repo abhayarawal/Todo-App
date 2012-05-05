@@ -14,26 +14,27 @@
 </head>
 <body>
 <div class="wrapper">
-	<div>What to do?</div>
-	<div class='wrap container'>
-		<input placeholder="Type and hit enter" name="todo" id="new-todo" type="text" autocomplete="off" />
-		<!-- <span class="tooltip">
-			Hit enter to add todo. Assign color from the right.
-		</span> -->
-		<ul class='priority right'>
-			<input type=radio name='priority' id='priority_h' value='high'>
-			<label for="priority_h" class="red"></label>
-			<input type=radio name='priority' id='priority_m' value='medium'>
-			<label for="priority_m" class="blue"></label>
-			<input type=radio name='priority' id='priority_l' value='low' checked>
-			<label for="priority_l" class="white"></label>
+	<div class="overfl">
+		<div>What to do?</div>
+		<div class='wrap container'>
+			<input placeholder="Type and hit enter" name="todo" id="new-todo" type="text" autocomplete="off" />
+			<!-- <span class="tooltip">
+				Hit enter to add todo. Assign color from the right.
+			</span> -->
+			<ul class='priority right'>
+				<input type=radio name='priority' id='priority_h' value='high'>
+				<label for="priority_h" class="red"></label>
+				<input type=radio name='priority' id='priority_m' value='medium'>
+				<label for="priority_m" class="blue"></label>
+				<input type=radio name='priority' id='priority_l' value='low' checked>
+				<label for="priority_l" class="white"></label>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<ul id="sortable">
 		</ul>
-		<div class="clear"></div>
 	</div>
-	<ul id="sortable">
-	</ul>
-	<div>
-		<span>-- tasks left</span>
+	<div id="footer">
 	</div>
 </div>
 
@@ -62,12 +63,6 @@
 <script src="js/todoApp.js"></script>
 <script>
 	$(function() {
-		$("#sortable").on("click", ".cross", function() {
-			$(this).parent().animate({ marginLeft: -600 }).slideUp('normal').fadeOut(50, function() {
-				$(this).remove();
-			});
-		});
-
 		$("#sortable").on("dblclick", "li", function(){
 			$( this ).children().hide();
 			$( this ).children('div').show();
