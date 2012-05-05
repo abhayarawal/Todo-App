@@ -79,7 +79,6 @@
 		},
 
 		edit: function() {
-
 		},
 
 		clear: function() {
@@ -88,7 +87,7 @@
 
 		updateOnEnter: function(e) {
 			if ((e.keyCode || e.which) == 13) {
-				this.model.set({
+				this.model.save({
 					priority: this.$('input:radio[name='+this.model.get('id')+']:checked').val(),
 					todo: this.$('input:text').val()
 				});
@@ -104,14 +103,14 @@
 		initialize: function() {
 			$( "#sortable" ).sortable({ opacity: 0.8 });
 
-			_.bindAll(this, 'addOne', 'addAll', 'render');
+			_.bindAll(this, 'addOne', 'render');
 			this.input = $('#new-todo');
 
 			Todos.bind('add', this.addOne);
-			Todos.bind('refresh', this.addAll);
 			Todos.bind('all', this.render);
 
 			Todos.fetch();
+			Todos.each(this.addOne);
 		},
 
 		events: {
@@ -131,10 +130,6 @@
 		addOne: function(todo) {
 			var view = new TodoView({model: todo});
 			$('#sortable').append(view.render().el);
-		},
-
-		addAll: function() {
-			Todos.each(this.addOne);
 		},
 
 		createNewTodo: function(e) {
