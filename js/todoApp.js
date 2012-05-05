@@ -5,6 +5,9 @@
 		},
 
 		clear: function() {
+			$(this.view.el).animate({ marginLeft: -600 }).slideUp('normal').fadeOut(50, function() {
+				$(this).remove();
+			});
 			this.destroy();
 		}
 	});
@@ -16,10 +19,6 @@
 
 		checked: function() {
 			return this.filter(function(todo) { return todo.get('checked'); });
-		},
-
-		incomplete: function() {
-			return this.without.apply(this, this.checked());
 		},
 
 		nextOrder: function() {
@@ -49,6 +48,7 @@
 		initialize: function() {
 			_.bindAll(this, 'render');
 			this.model.bind('change', this.render);
+			this.model.view = this;
 		},
 
 		render: function() {
@@ -99,6 +99,8 @@
 	window.AppView = Backbone.View.extend({
 		el : $('.wrapper'),
 
+		countTemplate: _.template('<span class="todo-count"><% if (remaining>0) { %><span class=num><%= remaining %></span> tasks left.<%}%></span><span class="filter right help">?</span><% if (complete>0) {%><span class="filter right clearComplete">Clear <%=complete%> completed</span><%}%><div class="clear"></div>'),
+
 		initialize: function() {
 			$( "#sortable" ).sortable({ opacity: 0.8 });
 
@@ -113,10 +115,17 @@
 		},
 
 		events: {
-			'keypress #new-todo' : 'createNewTodo'
+			'keypress #new-todo' : 'createNewTodo',
+			'click .clearComplete' : 'clearChecked'
 		},
 
 		render: function() {
+			var complete = Todos.checked().length;
+			$('#footer').html(this.countTemplate({
+				complete: complete,
+				remaining: Todos.length - complete,
+				total: Todos.length
+			}));
 		},
 
 		addOne: function(todo) {
@@ -147,7 +156,10 @@
 		},
 
 		clearChecked: function() {
-			_.each(Todos.checked(), function(todo) { todo.clear(); });
+			_.each(Todos.checked(), function(todo) { 
+				todo.clear(); 
+			});
+			return false;
 		}
 	});
 
