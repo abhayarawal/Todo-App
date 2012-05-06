@@ -39,10 +39,10 @@
 		template: _.template($('#todo-template').html()),
 
 		events: {
-			'click :checkbox'      : 'toggleDone',
-			'dblclick .todo'       : 'edit',
-			'click .cross'         : 'clear',
-			'keypress input:text'  : 'updateOnEnter'
+			'click :checkbox'    : 'toggleDone',
+			'dblclick .todo'     : 'edit',
+			'click .cross'       : 'clear',
+			'keypress input:text': 'updateOnEnter'
 		},
 
 		initialize: function() {
@@ -79,6 +79,17 @@
 		},
 
 		edit: function() {
+			if (_.isObject(editingView)) {
+				editingView.update();
+			}
+			editingView = this;
+			
+			var divTodo = this.$('div.todo');
+			
+			$('#sortable li div.todo').children().show();
+			$('#sortable li div.todo').children('div.wrap').hide();
+			$( divTodo ).children().hide();
+			$( divTodo ).children('div.wrap').show();
 		},
 
 		clear: function() {
@@ -87,18 +98,24 @@
 
 		updateOnEnter: function(e) {
 			if ((e.keyCode || e.which) == 13) {
-				this.model.save({
-					priority: this.$('input:radio[name='+this.model.get('id')+']:checked').val(),
-					todo: this.$('input:text').val()
-				});
+				this.update();
 			}
+		},
+
+		update: function() {
+			this.model.save({
+				priority: this.$('input:radio[name='+this.model.get('id')+']:checked').val(),
+				todo: this.$('input:text').val()
+			});
 		}
 	});
+
+	window.editingView = "";
 
 	window.AppView = Backbone.View.extend({
 		el : $('.wrapper'),
 
-		countTemplate: _.template('<span class="todo-count"><% if (remaining>0) { %><span class=num><%= remaining %></span> tasks left.<%}%></span><span class="filter right help">?</span><% if (complete>0) {%><span class="filter right clearComplete">Clear <%=complete%> completed</span><%}%><div class="clear"></div>'),
+		statTemplate: _.template('<span class="todo-count"><% if (remaining>0) { %><span class=num><%= remaining %></span> tasks left.<%} else {%>Nothing to do ;)<% }%></span><span class="filter right help">?</span><% if (complete>0) {%><span class="filter right clearComplete">Clear <%=complete%> completed</span><%}%><div class="clear"></div>'),
 
 		initialize: function() {
 			$( "#sortable" ).sortable({ opacity: 0.8 });
@@ -114,13 +131,13 @@
 		},
 
 		events: {
-			'keypress #new-todo' : 'createNewTodo',
+			'keypress #new-todo'   : 'createNewTodo',
 			'click .clearComplete' : 'clearChecked'
 		},
 
 		render: function() {
 			var complete = Todos.checked().length;
-			$('#footer').html(this.countTemplate({
+			$('.stat').html(this.statTemplate({
 				complete: complete,
 				remaining: Todos.length - complete,
 				total: Todos.length
