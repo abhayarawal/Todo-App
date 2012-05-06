@@ -4,7 +4,7 @@ body {
 	background: #f4f4f4;
 }
 .wrapper {
-	margin: -1px auto;
+	margin: -1px auto 10px auto;
 	font-size: 13px;
 	width: 550px;
 	background: white;
@@ -53,8 +53,8 @@ body {
     z-index: 1001;
 }
 .wrapper div {position: relative;}
-.overfl {overflow: hidden;}
-#sortable > li {
+.overfl {overflow: hidden; padding: 0 0 30px 0;}
+.todo {
 	text-align: left;
     line-height: 1em;
     font-size: 22px;
@@ -66,14 +66,11 @@ body {
     color: #333;
     position: relative;
 }
-#sortable > li:hover {
-    color: #222;
-}
-#sortable > li > input[type=checkbox] {
+.todo input[type=checkbox] {
     padding: 0;
-    margin: 0 10px 0 0;
+    margin: 0 5px 0 0;
 }
-#sortable input[type="checkbox"]:checked + span {
+.todo input[type="checkbox"]:checked + span {
     opacity: 0.7;
     -moz-opacity: 0.7;
     filter:alpha(opacity=7);
@@ -98,7 +95,7 @@ body {
     background-image: -moz-linear-gradient(top, rgba(230, 230, 230, 1), rgba(210, 210, 210, 1));
     cursor: pointer;
     right: 0;
-    top: 15px;
+    top: 12px;
     opacity: 0;
     -moz-opacity: 0;
     filter:alpha(opacity=0);
@@ -109,7 +106,7 @@ body {
     -ms-transition: opacity 0.4s ease-in-out;
     transition: opacity 0.4s ease-in-out;
 }
-#sortable > li > span:nth-child(2) {
+.todo span:nth-child(2) {
     -webkit-transition: opacity 0.4s ease-out;
     -moz-transition: opacity 0.4s ease-out;
     -o-transition: opacity 0.4s ease-out;
@@ -121,14 +118,13 @@ body {
     background-image: -webkit-linear-gradient(top, rgba(220, 220, 220, 1), rgba(200, 200, 200, 1));
     background-image: -moz-linear-gradient(top, rgba(220, 220, 220, 1), rgba(200, 200, 200, 1));
 }
-#sortable > li:hover > .cross {
+.todo:hover > .cross {
     opacity: 1;
     -moz-opacity: 1;
     filter:alpha(opacity=1);
     display: inline-block;
 }
 #footer {
-    margin: 30px 0 0 0;
     width: auto;
     border-top: 1px solid #ddd;
     background-image: linear-gradient(top, rgb(240, 240, 240), rgb(230, 230, 230));
@@ -234,9 +230,6 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#ace4f8', EndColorStr='#6ccdf3');
  
     border:1px solid #ccc;
-    box-shadow:
-        inset 0px 1px 0px rgba(255,255,255,.35),
-        0px 1px 1px rgba(0,0,0,.06);
 }
 .high {
     background-image: -webkit-linear-gradient(top, rgb(244, 102, 119), rgb(247, 130, 151));
